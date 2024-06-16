@@ -1,37 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work in Progress</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Work in Progress</h1>
-        <p>This website is currently under construction. Please check back later for updates.</p>
-    </div>
-</body>
+
+    <head>
+        <title>Krishna Kondhare</title>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <meta charset="UTF-8">
+
+        <meta property="og:title" content="Krishna Kondhare" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="" />
+        <meta property="og:description" content="Hi! I'm Krishna" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:image" content="" />
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Krishna Kondhare">
+        <meta name="twitter:description" content="Hi! I'm Krishna.">
+        <meta name="twitter:image" content="">
+        <meta name="twitter:site" content="@krishna221619">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="copyright" content="Krishna Kondhare">
+        <meta name="description" content="Hi! I'm Krishna.">
+        <meta name="keywords"
+            content="Bug Hunter, Security Reseacher, Web Designer, Pentester , Author ">
+        <meta name="robots" content="noindex, nofollow" />
+
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+        <link rel="stylesheet" href="./css/main.css" type="text/css">
+        <link rel="stylesheet" href="./css/header.css" type="text/css">
+        <link rel="stylesheet" href="./css/home.css" type="text/css">
+        <link rel="stylesheet" href="./css/projects.css" type="text/css">
+        <link rel="stylesheet" href="./css/footer.css" type="text/css">
+    </head>
+
+    <body>
+        <header class="header">
+            <a href="/" class="header-logo">@krishna221619</a>
+            <nav class="nav">
+                <div class="toggle"><i class="fas fa-bars"></i></div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="/about.html">About</a></li>
+                    <li class="nav-item"><a href="/projects.html">Projects</a></li>
+                    <li class="nav-item"><a href="https://anniedotexe.mypixieset.com/">Photos</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-container home-section">
+            <section id="home">
+                <div class="landing-page-details">
+                    <h1 class="small-title">Hi,</h1>
+                    <h2 class="big-title">I'm <span class="my-name pink">Krishna</span></h2>
+                    <h3 class="medium-title"><em>Web App Pentester <a class="green">& Security Researcher</a></em></h3>
+                    <div class="short-bio">
+                        <p>I am a Cybersecurity enthusiast, developer, and
+                            Author of The Clowns Handbook
+                            From Pune, India.</p>
+                    </div>
+                    <div class="cta-container email-container">
+                        <a href="mailto:krishnaakondhare22@gmail.com" class="cta email-button">
+                            <img src="./img/email.svg" alt="Email Icon">
+                            <span>Let's Connect</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="art-me">
+                    <img src="./img/avtr.png">
+                </div>
+                <div class="landing-page-socials">
+                    <ul>
+                        <li class="social-link">
+                            <a href="https://www.linkedin.com/in/krishna221619/" aria-label="LinkedIn"
+                                target="_blank">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                        </li>
+                        <li class="social-link">
+                            <a href="https://github.com/krishna221619" aria-label="GitHub"
+                                target="_blank">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                        </li>
+                        <li class="social-link">
+                            <a href="https://instagram.com/krishna221619" aria-label="Instagram"
+                                target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section class="projects" id="select-projects">
+                <h2>My Work</h2>
+                <p class="section-description">
+                    Here are some personal projects I have worked on.<br>
+                    You can find more on <a class="hyperlink"
+                        href="https://github.com/krishna221619">GitHub</a>.
+                </p>
+                <div class="project-cards-container">
+                    <div class="card">
+                        <img src="./img/clownshandbook.jpg"
+                            alt="Book Preview" class="card-preview-img">
+                        <div class="card-info">
+                            <div class="title-and-links">
+                                <span class="project-title">
+                                    The Clowns Handbook
+                                </span>
+                                <div class="project-links">
+                                    <a href="https://www.amazon.in/Clowns-Handbook-Hacking-Transparency-ebook/dp/B09Z7WC86H/ref=sr_1_2?crid=2Y5SV34758CYA&keywords=the+clowns+handbook&qid=1702840078&s=books&sprefix=the+clowns+handboo%2Cstripbooks%2C195&sr=1-2">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                   
+                                </div>
+                            </div>
+                            <div class="project-skills">
+                                <span>E-Book</span>
+                                <span>Ethical Hacking</span>
+                            </div>
+                            <p class="project-description">
+                                This is a book which I made out of my notes that I made while I was learning Cybersecurity. 
+                                A collection of ethical hacking techniques and tips for beginners.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="./img/phishingdetectionsystem.jpg"
+                            alt="Project Preview Screenshot" class="card-preview-img">
+                        <div class="card-info">
+                            <div class="title-and-links">
+                                <span class="project-title">
+                                    Phsing Detection System
+                                </span>
+                                <div class="project-links">
+                                    <a href="https://github.com/krishna221619/Phishing_Detection_System">
+                                        <i class="fas fa-external-link-alt"></i>
+                                   
+                                </div>
+                            </div>
+                            <div class="project-skills">
+                                <span>Chrome Extension</span>
+                                <span>Phishing Detection System</span>
+                            </div>
+                            <p class="project-description">
+                                This is the chrome Extension that I am working on.
+                                It will be a simple chrome extension that will give signals 
+                                whether the sites looks suspicious or not.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="./img/webpentest.jpg"
+                            alt="Project Preview Screenshot" class="card-preview-img">
+                        <div class="card-info">
+                            <div class="title-and-links">
+                                <span class="project-title">
+                                    Web app pentration Testing tool
+                                </span>
+                                <div class="project-links">
+                                    <a href="https://github.com/krishna221619/5_test">
+                                        <i class="fas fa-external-link-alt"></i>
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                            <div class="project-skills">
+                                <span>Python</span>
+                                <span>Web app pentesting Automation</span>
+                            </div>
+                            <p class="project-description">
+                               This is a basic web app pentesting tool, will look to 
+                               improve this overtime. Looking for something I can do with this.
+                            </p>
+                        </div>
+                    </div>
+                    
+            </section>
+            <div class="cta-container">
+                <a href="/projects.html" class="cta">
+                    <img src="./img/coding.svg" alt="Code Icon">
+                    <span>Explore More</span>
+                </a>
+            </div>
+        </main>
+
+        <footer class="footer-container">
+            <div class="footer">
+                <div class="footer-column">
+                    <a href="/" class="footer-logo">@krishna221619</a>
+                    <div class="socials">
+                        <ul>
+                            <li class="social-link">
+                                <a href="https://www.linkedin.com/in/krishna221619/"
+                                    aria-label="LinkedIn" target="_blank">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            </li>
+                            <li class="social-link">
+                                <a href="https://github.com/krishna221619" aria-label="GitHub"
+                                    target="_blank">
+                                    <i class="fa-brands fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="social-link">
+                                <a href="https://instagram.com/krishna221619" aria-label="Instagram"
+                                    target="_blank">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="copyright"><i class="fa-regular fa-copyright"></i> Krishna Kondhare
+                        2021-2023</span>
+                </div>
+                <div class="footer-column">
+                    <a href="/about.html" class="footer-button">
+                        <img src="./img/smile.svg" alt="Smile Icon">
+                        About
+                    </a>
+                    <a href="/projects.html" class="footer-button">
+                        <img src="./img/coding.svg" alt="Code Icon">
+                        Projects
+                    </a>
+
+                </div>
+                <!-- <div class="footer-column">
+                    <a href="Adding My notion notes"
+                        class="footer-button">
+                        <img src="./img/blog.svg" alt="Blog Icon">
+                        Thoughts
+                    </a>
+                    <a href="/krishna21619.pdf" class="footer-button">
+                        <img src="./img/resume.svg" alt="Resume Icon">
+                        Resume
+                    </a>
+                    <a href="mailto:anniewu2303@gmail.com" class="footer-button">
+                        <img src="./img/email.svg" alt="Email Icon">
+                        Contact
+                    </a>
+                </div> -->
+                <div class="footer-column">
+                    <!-- <a href="https://www.polywork.com/anniedotexe" class="footer-button">
+                                        <img src="./img/polywork.svg" alt="PolyWork Icon">
+                                        Updates
+                                    </a> -->
+                    <a href="/KrishnaResume.pdf" class="footer-button">
+                    <img src="./img/resume.svg" alt="Resume Icon">
+                    Resume
+                    </a>
+                    <a href="mailto:krishnaakondhare22@gmail.com" class="footer-button">
+                        <img src="./img/email.svg" alt="Email Icon">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+        <script src="./js/main.js"></script>
+    </body>
+
 </html>
