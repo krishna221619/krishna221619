@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Kondhare - Security Consultant</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+         :root {
+            --primary-green: #00ff41;
+            --dark-green: #00cc33;
+            --accent-cyan: #00ffff;
+            --accent-red: #ff0066;
+            --bg-primary: #000000;
+            --bg-secondary: #0d1117;
+            --bg-card: rgba(13, 17, 23, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #8b949e;
+            --text-accent: #00ff41;
+            --border-color: rgba(0, 255, 65, 0.3);
+            --glass-bg: rgba(13, 17, 23, 0.6);
+            --locked-color: #ff6b35;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        /* Matrix Rain Background */
+        
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+        }
+        /* Professional Glass Cards */
+        
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 32px rgba(0, 255, 64, 0.973);
+        }
+        /* Professional Navigation */
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo::before {
+            content: '🛡️';
+            font-size: 1.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-green);
+            background: rgba(0, 255, 65, 0.1);
+        }
+        /* Professional Hero Section */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 6rem 2rem 4rem;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .hero .description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-green);
+            color: var(--bg-primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.4);
+        }
+        /* Section Styling */
+        
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--text-primary);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        /* Professional About Section */
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .about-image {
+            position: relative;
+        }
+        
+        .profile-container {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-cyan));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin: 0 auto 2rem;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        /* Professional Skills Section */
+        
+        .skills-container {
+            margin-bottom: 4rem;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .skill-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.15);
+        }
+        
+        .skill-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+            font-weight: 600;
+        }
+        
+        .skill-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .tools-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+        
+        .tool-card {
+            background: var(--bg-card);
+            padding: 1.5rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        
+        .tool-card:hover {
+            border-color: var(--primary-green);
+            transform: translateY(-3px);
+            background: rgba(0, 255, 65, 0.08);
+        }
+        
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            display: block;
+        }
+        
+        .tool-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        /* Professional Certifications Section */
+        
+        .cert-section {
+            margin-top: 4rem;
+        }
+        
+        .cert-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .cert-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .cert-card.locked {
+            border-color: var(--locked-color);
+            opacity: 0.7;
+        }
+        
+        .cert-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-green);
+            box-shadow: 0 8px 25px rgba(0, 255, 65, 0.15);
+        }
+        
+        .cert-card.locked:hover {
+            border-color: var(--locked-color);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.15);
+        }
+        
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .cert-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .cert-card.locked h4 {
+            color: var(--locked-color);
+        }
+        
+        .cert-description {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        .cert-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .cert-status.earned {
+            background: var(--primary-green);
+            color: var(--bg-primary);
+        }
+        
+        .cert-status.locked {
+            background: var(--locked-color);
+            color: var(--text-primary);
+        }
+        
+        .lock-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: var(--locked-color);
+            opacity: 0.3;
+        }
+        /* Professional Projects Section */
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-green);
+            box-shadow: 0 12px 30px rgba(0, 255, 65, 0.2);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--primary-green);
+            color: var(--bg-primary);
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        
+        .project-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .project-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 65, 0.1);
+            color: var(--primary-green);
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        /* Professional Timeline */
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            border-color: var(--primary-green);
+            transform: translateX(8px);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 60%;
+            background: var(--primary-green);
+            border-radius: 2px;
+        }
+        
+        .timeline-item h3 {
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .timeline-item h4 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .timeline-period {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        /* Professional Contact Section */
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+        
+        .contact-form {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .contact-form h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.15);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-green);
+            border: none;
+            color: var(--bg-primary);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .submit-btn:hover {
+            background: var(--dark-green);
+            transform: translateY(-2px);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: rgba(0, 255, 65, 0.08);
+            border-color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+        
+        .social-icon {
+            font-size: 1.5rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .social-details strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .social-details span {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        /* Terminal Enhancement */
+        
+        .terminal-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            color: var(--bg-primary);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 255, 65, 0.4);
+        }
+        
+        .terminal-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 255, 65, 0.5);
+        }
+        
+        .terminal-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+        
+        .terminal-window {
+            width: 85%;
+            max-width: 900px;
+            height: 75%;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .terminal-header {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .terminal-header span:first-child {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-green);
+            font-weight: 500;
+        }
+        
+        .terminal-close {
+            cursor: pointer;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .terminal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .terminal-body {
+            padding: 1.5rem;
+            height: calc(100% - 80px);
+            overflow-y: auto;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        #terminalInput {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--primary-green);
+            font-family: 'JetBrains Mono', monospace;
+            flex: 1;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        /* Responsive Enhancements */
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .hero .cta-button {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.95rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .tools-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            }
+            section {
+                padding: 4rem 1.5rem;
+            }
+            .terminal-window {
+                width: 95%;
+                height: 85%;
+            }
+        }
+        /* Scroll Animations */
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Smooth scrolling */
+        
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Matrix Rain Canvas -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Krishna Kondhare</div>
+            <ul class="nav-links">
+                <li><a href="#home">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Hello, I'm Krishna Kondhare Security Consultant</h1>
+            <p class="subtitle">Specialized in Web Application, API, Network, and Wi-Fi Penetration Testing</p>
+            <p class="description">Security Consultant with expertise in Web Application, API, Network, and Wi-Fi Penetration Testing. Skilled in identifying vulnerabilities, conducting comprehensive assessments, and delivering clear, actionable reports to enhance security
+                posture. Currently pursuing Bachelor of Engineering in Computer Engineering with hands-on experience in VAPT engagements.</p>
+            <a href="#about" class="cta-button">
+                View My Work
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="fade-in">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <div class="profile-container">
+                    🛡️
+                </div>
+            </div>
+            <div>
+                <p class="about-text">
+                    Security Consultant with specialized expertise in Web Application, API, Network, and Wi-Fi Penetration Testing. Currently pursuing Bachelor of Engineering in Computer Engineering at Dr. D.Y. Patil College of Engineering, Pune with a strong academic record
+                    of 8.02/10 CGPA.
+                </p>
+                <p class="about-text">
+                    Skilled in identifying vulnerabilities, conducting comprehensive security assessments, and delivering clear, actionable reports to enhance organizational security posture. Experience includes working with industry-leading security firms and contributing
+                    to published research in digital forensics.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="fade-in">
+        <h2 class="section-title">Skills & Tools</h2>
+
+        <div class="skills-container">
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>🌐 Web Application Pentest</h3>
+                    <p>Comprehensive web application security testing, vulnerability identification, and detailed security assessment reporting with actionable remediation strategies.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🔗 API Security Testing</h3>
+                    <p>Specialized API penetration testing, endpoint security assessment, and authentication/authorization vulnerability analysis using industry-standard tools.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📡 Network Penetration Testing</h3>
+                    <p>Network infrastructure security assessment, vulnerability scanning, service enumeration, and comprehensive network security analysis.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📶 Wi-Fi Penetration Testing</h3>
+                    <p>Wireless network security assessment, Wi-Fi vulnerability testing, and wireless infrastructure security evaluation with detailed reporting.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📱 Android Penetration Testing</h3>
+                    <p>Mobile application security testing, Android app vulnerability assessment, and mobile security analysis with forensic log extraction.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🔍 Digital Forensics</h3>
+                    <p>Digital forensic investigations, evidence collection, data recovery, and comprehensive forensic analysis with detailed documentation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tools-section">
+            <h3>Security Arsenal</h3>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <span class="tool-icon">🔧</span>
+                    <div class="tool-name">Burp Suite</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">📡</span>
+                    <div class="tool-name">Nmap</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">🔍</span>
+                    <div class="tool-name">Wireshark</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">💀</span>
+                    <div class="tool-name">Metasploit</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">🔍</span>
+                    <div class="tool-name">Nessus</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">🐍</span>
+                    <div class="tool-name">Python</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">📮</span>
+                    <div class="tool-name">Postman</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">👁️</span>
+                    <div class="tool-name">Shodan</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">🐧</span>
+                    <div class="tool-name">Kali Linux</div>
+                </div>
+                <div class="tool-card">
+                    <span class="tool-icon">🔧</span>
+                    <div class="tool-name">Recon Tools</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="fade-in">
+        <h2 class="section-title">Certifications</h2>
+        <p class="section-subtitle">Professional certifications and achievements in cybersecurity</p>
+
+        <div class="cert-grid">
+            <div class="cert-card">
+                <span class="cert-status earned">Earned</span>
+                <span class="cert-icon">🛡️</span>
+                <h4>Certified AppSec Practitioner</h4>
+                <p class="cert-description">Application Security certification focusing on secure development and testing practices</p>
+            </div>
+
+            <div class="cert-card">
+                <span class="cert-status earned">Earned</span>
+                <span class="cert-icon">🔐</span>
+                <h4>Cybersecurity Fundamentals</h4>
+                <p class="cert-description">Core cybersecurity principles, threat analysis, and security frameworks</p>
+            </div>
+
+            <div class="cert-card">
+                <span class="cert-status earned">Earned</span>
+                <span class="cert-icon">🔍</span>
+                <h4>Digital Forensics Essentials</h4>
+                <p class="cert-description">Digital evidence collection, analysis, and forensic investigation techniques</p>
+            </div>
+
+            <div class="cert-card">
+                <span class="cert-status earned">Earned</span>
+                <span class="cert-icon">🌐</span>
+                <h4>Network Security</h4>
+                <p class="cert-description">Network infrastructure security, monitoring, and incident response</p>
+            </div>
+
+            <div class="cert-card locked">
+                <span class="cert-status locked">Target</span>
+                <span class="cert-icon">💀</span>
+                <h4>OSCP</h4>
+                <p class="cert-description">Offensive Security Certified Professional - Advanced penetration testing certification</p>
+                <div class="lock-overlay">🔒</div>
+            </div>
+
+            <div class="cert-card locked">
+                <span class="cert-status locked">Target</span>
+                <span class="cert-icon">🎯</span>
+                <h4>CRTE</h4>
+                <p class="cert-description">Certified Red Team Expert - Advanced red team operations and adversary simulation</p>
+                <div class="lock-overlay">🔒</div>
+            </div>
+
+            <!-- <div class="cert-card locked">
+                <span class="cert-status locked">Target</span>
+                <span class="cert-icon">☁️</span>
+                <h4>AWS Security</h4>
+                <p class="cert-description">AWS Certified Security - Cloud security architecture and implementation</p>
+                <div class="lock-overlay">🔒</div>
+            </div>
+
+            <div class="cert-card locked">
+                <span class="cert-status locked">Target</span>
+                <span class="cert-icon">📱</span>
+                <h4>GMOB</h4>
+                <p class="cert-description">GIAC Mobile Device Security Analyst - Mobile security and forensics</p>
+                <div class="lock-overlay">🔒</div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="fade-in">
+        <h2 class="section-title">Projects / Case Studies</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <span class="project-status">Completed</span>
+                    <h3>Android Log Extraction for Digital Forensics</h3>
+                    <p>Extract logs essential for forensic investigation and generate detailed reports by categorizing various logs. Published research in International Journal of Innovative Research in Science, Engineering and Technology.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Android Forensics</span>
+                        <span class="project-tag">Log Analysis</span>
+                        <span class="project-tag">Research Publication</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">🔍</div>
+                <div class="project-content">
+                    <span class="project-status">Completed</span>
+                    <h3>Digital Forensics Project</h3>
+                    <p>Extracted and categorized critical logs from Android devices, laptops, and USB drives to support forensic investigations, ensuring data integrity and adherence to chain of custody protocols.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Digital Forensics</span>
+                        <span class="project-tag">Evidence Collection</span>
+                        <span class="project-tag">Chain of Custody</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image">📚</div>
+                <div class="project-content">
+                    <span class="project-status">Published</span>
+                    <h3>Research Publications</h3>
+                    <p>Published "The Clown's Handbook: Hacking the Transparency" and research on Android Log Extraction for Digital Forensics in peer-reviewed journals, contributing to cybersecurity knowledge base.</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Research</span>
+                        <span class="project-tag">Publication</span>
+                        <span class="project-tag">Cybersecurity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience" class="fade-in">
+        <h2 class="section-title">Timeline / Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <h3>Security Consultant Intern</h3>
+                <h4>Secure Layer 7</h4>
+                <div class="timeline-period">July 2024 - Present</div>
+                <p>Performed Web, API, Network, and Wi-Fi Penetration Testing as part of VAPT engagements, identifying security flaws across multiple layers. Discovered critical and high-severity vulnerabilities and recommended tailored mitigation strategies
+                    aligned with industry standards.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Cyber Security and Digital Forensics Intern</h3>
+                <h4>Cyber Secured India</h4>
+                <div class="timeline-period">December 2023 - February 2024</div>
+                <p>Assisted in thoroughly analyzing complex cybersecurity incidents and detailed digital forensic investigations. Led investigations uncovering vulnerabilities in 2 web applications, resulting in enhanced security protocols.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>VAPT Intern</h3>
+                <h4>CFSS (Cyber Forensics Security Solutions)</h4>
+                <div class="timeline-period">November 2023 - February 2024</div>
+                <p>Conducted extensive research significantly contributing to enhanced data security practices and protocols. Focused on digital forensics methodologies and cybersecurity best practices.</p>
+            </div>
+
+            <div class="timeline-item">
+                <h3>Community Volunteer</h3>
+                <h4>SecurityBoat Community</h4>
+                <div class="timeline-period">August 2023 - Present</div>
+                <p>Active volunteer in cybersecurity community initiatives, contributing to knowledge sharing, mentoring junior professionals, and promoting cybersecurity awareness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="fade-in">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-content">
+            <div class="contact-form">
+                <h3>Send Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Your Email..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject...">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Your Message..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <a href="mailto:krishnaakondhare22@gmail.com" class="social-link">
+                    <span class="social-icon">📧</span>
+                    <div class="social-details">
+                        <strong>Email</strong><br>
+                        <span>krishnaakondhare22@gmail.com</span>
+                    </div>
+                </a>
+
+                <a href="https://linkedin.com/in/krishna221619" class="social-link">
+                    <span class="social-icon">💼</span>
+                    <div class="social-details">
+                        <strong>LinkedIn</strong><br>
+                        <span>/in/krishna-kondhare</span>
+                    </div>
+                </a>
+
+                <a href="tel:+91XXXXXXXXX" class="social-link">
+                    <span class="social-icon">📱</span>
+                    <div class="social-details">
+                        <strong>Phone</strong><br>
+                        <span>+91 XXXXXXXXXX</span>
+                    </div>
+                </a>
+
+                <a href="#" class="social-link">
+                    <span class="social-icon">📍</span>
+                    <div class="social-details">
+                        <strong>Location</strong><br>
+                        <span>Pune, Maharashtra 410507</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terminal Easter Egg -->
+    <div class="terminal-toggle" onclick="toggleTerminal()">
+        &gt;_
+    </div>
+
+    <div class="terminal-modal" id="terminalModal">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <span>krishna@security:~$</span>
+                <span class="terminal-close" onclick="toggleTerminal()">✕</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div>Welcome to Krishna Kondhare's Security Terminal v2.1.3</div>
+                <div>Type 'help' for available commands</div>
+                <br>
+                <div id="terminalOutput"></div>
+                <div style="display: flex; align-items: center;">
+                    <span style="color: var(--primary-green);">krishna@security:~$ </span>
+                    <input type="text" id="terminalInput" placeholder="Enter command...">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Animation
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff41';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        // Resize canvas on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Terminal functionality
+        function toggleTerminal() {
+            const modal = document.getElementById('terminalModal');
+            if (modal.style.display === 'flex') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'flex';
+                document.getElementById('terminalInput').focus();
+            }
+        }
+
+        const terminalCommands = {
+            help: `Available commands:
+• help - Show this help message
+• whoami - Display user information
+• ls - List directory contents
+• nmap - Run network scan simulation
+• exploit - Execute payload simulation
+• clear - Clear terminal
+• exit - Close terminal`,
+
+            whoami: `Krishna Kondhare - Security Consultant
+UID: 1337
+Groups: securityconsultant, pentesters, appsec
+Education: Computer Engineering Student
+Location: Pune, Maharashtra`,
+
+            ls: `total 42
+drwxr-xr-x  3 krishna krishna  4096 Jul 23 2025 vapt-reports/
+drwxr-xr-x  2 krishna krishna  4096 Jul 23 2025 digital-forensics/
+drwxr-xr-x  4 krishna krishna  4096 Jul 23 2025 android-logs/
+-rwxr-xr-x  1 krishna krishna  8192 Jul 23 2025 log_extractor.py
+-rw-r--r--  1 krishna krishna  2048 Jul 23 2025 research_paper.pdf
+-rwxr-xr-x  1 krishna krishna  4096 Jul 23 2025 wifi_pentest.sh
+-rw-r--r--  1 krishna krishna  1024 Jul 23 2025 certifications.txt`,
+
+            nmap: () => {
+                let output = 'Starting Nmap 7.94 scan...\n';
+                const targets = ['192.168.1.1', '192.168.1.100', '192.168.1.254'];
+                const ports = ['22/tcp', '80/tcp', '443/tcp', '3389/tcp', '445/tcp'];
+
+                targets.forEach(target => {
+                    output += `\nNmap scan report for ${target}\n`;
+                    output += 'Host is up (0.00012s latency).\n';
+                    output += 'PORT     STATE SERVICE\n';
+
+                    ports.forEach(port => {
+                        const state = Math.random() > 0.3 ? 'open' : 'closed';
+                        const service = port.includes('22') ? 'ssh' :
+                            port.includes('80') ? 'http' :
+                            port.includes('443') ? 'https' :
+                            port.includes('3389') ? 'rdp' : 'smb';
+                        output += `${port.padEnd(8)} ${state.padEnd(6)} ${service}\n`;
+                    });
+                });
+
+                output += '\nNmap done: 3 IP addresses scanned';
+                return output;
+            },
+
+            exploit: () => {
+                return `[*] Initializing exploit framework...
+[*] Loading payload: windows/x64/meterpreter/reverse_tcp
+[*] Setting LHOST => 192.168.1.100
+[*] Setting LPORT => 4444
+[*] Exploit running as background job 0...
+[*] Started reverse TCP handler on 192.168.1.100:4444
+[*] Sending stage (200262 bytes) to 192.168.1.50
+[*] Meterpreter session 1 opened
+[!] This is a simulation - no actual exploit executed`;
+            },
+
+            clear: 'CLEAR_TERMINAL'
+        };
+
+        document.getElementById('terminalInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const input = this.value.trim().toLowerCase();
+                const output = document.getElementById('terminalOutput');
+
+                // Add command to output
+                output.innerHTML += `<div style="color: var(--primary-green);">krishna@security:~$ ${this.value}</div>`;
+
+                if (input === 'clear') {
+                    output.innerHTML = '';
+                } else if (input === 'exit') {
+                    toggleTerminal();
+                } else if (terminalCommands[input]) {
+                    const result = typeof terminalCommands[input] === 'function' ?
+                        terminalCommands[input]() :
+                        terminalCommands[input];
+                    output.innerHTML += `<div style="margin-bottom: 1rem; color: var(--text-secondary);">${result.replace(/\n/g, '<br>')}</div>`;
+                } else if (input) {
+                    output.innerHTML += `<div style="color: #ff4444; margin-bottom: 1rem;">bash: ${input}: command not found</div>`;
+                }
+
+                this.value = '';
+                document.getElementById('terminalBody').scrollTop = document.getElementById('terminalBody').scrollHeight;
+            }
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('.submit-btn');
+            const originalText = btn.textContent;
+
+            btn.textContent = 'Sending...';
+            btn.style.background = 'var(--dark-green)';
+
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = 'var(--primary-green)';
+                    this.reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Close terminal when clicking outside
+        document.getElementById('terminalModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleTerminal();
+            }
+        });
+    </script>
+</body>
+
+</html>
